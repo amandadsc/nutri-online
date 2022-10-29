@@ -22,11 +22,13 @@ def entrar(request):
                 login(request, usuario)
                 messages.add_message(request, messages.SUCCESS, 'Admin logado com sucesso!')
                 return redirect('lista_paciente')
-            else:
+            elif usuario.groups.filter(name = 'paciente'):
                 paciente = get_object_or_404(Paciente, email=email)
                 login(request, usuario)
                 messages.add_message(request, messages.SUCCESS, 'Usuário logado com sucesso!')
                 return redirect('mostra_home', pk=paciente.pk)
+            else:
+                messages.add_message(request, messages.INFO, 'Usuário não cadastrado!')
     return render(request, 'register/login.html', {'titulo': 'NutriOnline'})
 
 @login_required(login_url='entrar')

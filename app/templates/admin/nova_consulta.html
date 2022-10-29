@@ -1,0 +1,117 @@
+{% extends 'base.html' %}  
+{% load static %}
+
+{% block header %}
+    <h1 class="brand-logo center">{{ titulo }}</h1>
+    <ul>
+        <li class="left"><a href="{% url 'lista_paciente' %}" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
+        <li class="right"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons">logout</i></a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+<div class="row margin-topo center">  
+    <h6>paciente: {{ paciente.nome }}</h6>   
+</div>
+<div class="row margin-topo">
+    <form method="POST" class="col s12">
+        {% csrf_token %}
+        {% load widget_tweaks %}
+        <div class="row">
+            <div class="input-field col s12 m4">
+                {{form.peso|attr:"type:number"|attr:"id:peso"|add_class:"validate"|attr:"required:True"}}
+                <label for="peso">Digite o peso</label>
+                <span class="helper-text">Em kg</span>
+            </div>  
+            <div class="input-field col s12 m4">
+                {{form.altura|attr:"type:number"|attr:"id:altura"|add_class:"validate"|attr:"required:True"}}
+                <label for="altura">Digite a altura</label>
+                <span class="helper-text">Em m</span>
+            </div>   
+            <div class="input-field col s12 m2">
+                {{form.imc_valor|attr:"type:text"|attr:"id:imc_valor"|add_class:"validate"|attr:"required:True"|attr:"readonly"|attr:"value:-"}}
+                <label for="imc_valor">Valor do IMC</label>
+                <span class="helper-text">Clique para atualizar</span>
+            </div>    
+            <div class="input-field col s12 m2">
+                {{form.imc_classificacao|attr:"type:text"|attr:"id:imc_classificacao"|add_class:"validate"|attr:"required:True"|attr:"value:-"|attr:"readonly"}}
+                <label for="imc_classificacao">Classificação do IMC</label>
+                <span class="helper-text">Clique para atualizar</span>
+            </div>               
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m4">
+                {{form.massa_gordura|attr:"type:number"|attr:"id:massa_gordura"|add_class:"validate"|attr:"required:True"}}
+                <label for="massa_gordura">Digite a massa de gordura</label>
+                <span class="helper-text">Em kg</span>
+            </div>  
+            <div class="input-field col s12 m4">
+                {{form.massa_muscular|attr:"type:number"|attr:"id:massa_muscular"|add_class:"validate"|attr:"required:True"}}
+                <label for="massa_muscular">Digite a massa muscular</label>
+                <span class="helper-text">Em kg</span>
+            </div>   
+            <div class="input-field col s12 m4">
+                {{form.gordura_visceral|attr:"type:number"|attr:"id:gordura_visceral"|add_class:"validate"|attr:"required:True"}}
+                <label for="gordura_visceral">Digite a gordura visceral</label>
+                <span class="helper-text">Em kg</span>
+            </div>                   
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m4">
+                {{form.medida_abdomem|attr:"type:number"|attr:"id:medida_abdomem"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_abdomem">Digite a medida do abdomem</label>
+                <span class="helper-text">Em cm</span>
+            </div>  
+            <div class="input-field col s12 m4">
+                {{form.medida_quadril|attr:"type:number"|attr:"id:medida_quadril"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_quadril">Digite a medida do quadril</label>
+                <span class="helper-text">Em cm</span>
+            </div>   
+            <div class="input-field col s12 m4">
+                {{form.medida_cintura|attr:"type:number"|attr:"id:medida_cintura"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_cintura">Digite a medida da cintura</label>
+                <span class="helper-text">Em cm</span>
+            </div>                   
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m4">
+                {{form.medida_peito|attr:"type:number"|attr:"id:medida_peito"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_peito">Digite a medida do peito</label>
+                <span class="helper-text">Em cm</span>
+            </div> 
+            <div class="input-field col s12 m4">
+                {{form.medida_braco_esq|attr:"type:number"|attr:"id:medida_braco_esq"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_braco_esq">Digite a medida do braço esquerdo </label>
+                <span class="helper-text">Em cm</span>
+            </div>  
+            <div class="input-field col s12 m4">
+                {{form.medida_braco_dir|attr:"type:number"|attr:"id:medida_braco_dir"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_braco_dir">Digite a medida do braço direito</label>
+                <span class="helper-text">Em cm</span>
+            </div>                                          
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m4">
+                {{form.medida_perna_esq|attr:"type:number"|attr:"id:medida_perna_esq"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_perna_esq">Digite a medida da perna esquerda</label>
+                <span class="helper-text">Em cm</span>
+            </div> 
+            <div class="input-field col s12 m4">
+                {{form.medida_perna_dir|attr:"type:number"|attr:"id:medida_perna_dir"|add_class:"validate"|attr:"required:True"}}
+                <label for="medida_perna_dir">Digite a medida da perna direita</label>
+                <span class="helper-text">Em cm</span>
+            </div>                                           
+        </div>
+        <button type="submit" class="btn green darken-1">Salvar</button>
+    </form>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/app.js' %}"></script>
+{% endblock %}
+

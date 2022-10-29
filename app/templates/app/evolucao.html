@@ -1,0 +1,75 @@
+{% extends 'base.html' %}  
+{% load static %}
+
+{% block header %}
+    <h1 class="brand-logo center">{{ titulo }}</h1>
+    <ul>
+        <li class="left"><a href="{% url 'mostra_home' pk=paciente.pk %}" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
+        <li class="right hide-on-small-only"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons">logout</i></a></li>
+    </ul>
+{% endblock %}
+     
+{% block content %}
+<div class="row margin-topo center">
+    <div class="col s12">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Objetivo</span>
+              <p>{{ paciente.objetivo }}</p>
+            </div>
+        </div>                    
+    </div> 
+</div>
+<div class="row">
+    <div class="col s12 m12 l6">
+        <div class="card white">
+            <div class="card-content">
+              <span class="card-title green-text text-darken-4">Peso</span>
+              <canvas id="grafico_peso" width="400" height="250"></canvas>
+            </div>
+        </div>                    
+    </div> 
+    <div class="col s12 m12 l6">
+        <div class="card white">
+            <div class="card-content">
+              <span class="card-title green-text">Gordura</span>
+              <canvas id="grafico_massa_gordura" width="400" height="250"></canvas>
+            </div>
+        </div>                     
+    </div> 
+</div>
+<div class="row"> 
+    <div class="col s12 m12 l6">
+        <div class="card white">
+            <div class="card-content">
+              <span class="card-title light-green-text">Massa muscular</span>
+              <canvas id="grafico_massa_muscular" width="400" height="250"></canvas>
+            </div>
+        </div>                       
+    </div>   
+    <div class="col s12 m12 l6">
+        <div class="card white">
+            <div class="card-content">
+              <span class="card-title lime-text">IMC</span>
+              <canvas id="grafico_imc" width="400" height="250"></canvas>
+            </div>
+        </div>                   
+    </div> 
+</div>    
+{% endblock %}
+
+{% block scripts %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@^3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@^2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@^1"></script>
+    <script src="{% static 'js/graficos.js' %}"></script>
+    <script>
+        window.onload = function(e){
+            renderiza_grafico_peso('{% url "grafico_peso" pk=paciente.pk %}')
+            renderiza_grafico_massa_muscular('{% url "grafico_massa_muscular" pk=paciente.pk %}')
+            renderiza_grafico_massa_gordura('{% url "grafico_massa_gordura" pk=paciente.pk %}')
+            renderiza_grafico_imc('{% url "grafico_imc" pk=paciente.pk %}')    
+        }   
+    </script>
+{% endblock %}
+

@@ -1,0 +1,93 @@
+{% extends 'base.html' %}  
+{% load static %}
+
+{% block header %}
+    <h1 class="brand-logo center">{{ titulo }}</h1>
+    <ul>
+        <li class="left"><a href="{% url 'lista_paciente' %}" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
+        <li class="right"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons">logout</i></a></li>
+    </ul>
+{% endblock %}
+                
+{% block content %}  
+<div class="row margin-topo">  
+    <form method="POST" class="col s12">
+        {% csrf_token %}
+        {% load widget_tweaks %}
+
+        <div class="row">
+            <div class="input-field col s12 m6">
+                {{form.nome|attr:"type:text"|attr:"id:nome"|add_class:"validate"|attr:"required:True"}}
+                <label for="nome">Digite o nome</label>
+            </div> 
+            <div class="input-field col s12 m6">
+                {{form.objetivo|attr:"type:text"|attr:"id:objetivo"|add_class:"validate"|attr:"required:True"}}
+                <label for="objetivo">Digite o objetivo</label>
+            </div>                               
+        </div>
+
+        <div class="row">         
+            <div class="input-field col s12 m6">
+                {{form.email|attr:"type:email"|attr:"id:email"|add_class:"validate"|attr:"required:True"}}
+                <label for="email">Digite o email</label>
+            </div>  
+            <div class="input-field col s12 m3">
+                {{form.usuario|attr:"type:text"|attr:"id:usuario"|add_class:"validate"|attr:"required:True"}}
+                <label for="usuario">Digite o usuário</label>
+            </div>   
+            <div class="input-field col s12 m3">
+                {{form.senha|attr:"type:password"|attr:"id:senha"|add_class:"validate"|attr:"required:True"}}
+                <label for="senha">Digite a senha</label>
+            </div>                     
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m4">
+                {{form.cpf|attr:"type:text"|attr:"id:cpf"|add_class:"validate"|attr:"maxlength:11"|attr:"required:True"}}
+                <label for="cpf">Digite o CPF (somente números)</label>
+            </div> 
+            <div class="input-field col s12 m4">
+                {{form.data_nascimento|attr:"type:date"|attr:"id:data_nascimento"|add_class:"validate"|attr:"required:True"}}
+                <label for="data_nascimento">Data de Nascimento</label>
+            </div>       
+            <div class="input-field col s12 m4">
+                {{form.telefone|attr:"type:tel"|attr:"id:telefone"|add_class:"validate"}}
+                <label for="telefone">Telefone (somente números com DDD)</label>
+            </div>               
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12 m4">
+                <p>Gênero</p>
+                <p>
+                    <label>
+                        <!-- {{form.genero|attr:"type:radio"|attr:"value:Feminino"|add_class:"validate"}} -->
+                        <input type="radio" name="genero" class="validate" value="Feminino" {% if paciente.genero == "Feminino" %} checked {% endif %} />
+                        <span>Feminino</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <!-- {{form.genero|attr:"type:radio"|attr:"value:Masculino"|add_class:"validate"}} -->
+                        <input type="radio" name="genero" class="validate" value="Masculino" {% if paciente.genero == "Masculino" %} checked {% endif %} />
+                        <span>Masculino</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <!-- {{form.genero|attr:"type:radio"|attr:"value:Outro"|attr:"id:outro"|add_class:"validate"}} -->
+                        <input type="radio" name="genero" class="validate" id="outro" value="Outro" {% if paciente.genero != "Masculino" and paciente.genero != "Feminino" and paciente.genero is not None %} checked {% endif %} />
+                        <span>Outro. Qual?</span>
+                        <input type="text" name="outro" id="escolha" class="validate" {% if paciente.genero != "Masculino" and paciente.genero != "Feminino" and paciente.genero is not None %} value={{paciente.genero}} {% endif %} />
+                    </label>
+                </p>
+            </div>
+        </div>
+        <button type="submit" class="btn green darken-1">Salvar</button>
+    </form>
+</div>
+{% endblock %}
+    
+{% block scripts %}
+    <script src="{% static 'js/radioButton.js' %}"></script>
+{% endblock %}

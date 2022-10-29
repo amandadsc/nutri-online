@@ -1,0 +1,53 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+
+{% block header %}
+  <h1 class="brand-logo">Bem vindo(a), Nutricionista!</h1>
+  <ul class="right">
+    <li><a href="{% url 'cadastra_paciente' %}" class="btn white green-text text-darken-1">Cadastrar Paciente</a></li>
+    <li><a href="{% url 'sair' %}" class="white-text"><i class="material-icons">logout</i></a></li>
+  </ul>
+{% endblock %}
+
+{% block content %}
+  <nav class="margin-topo green darken-1">
+    <div class="nav-wrapper">
+      <form action="/pacientes/" method="GET">
+        <div class="input-field">
+          <input id="search" type="search" name="q" placeholder="Digite o nome do paciente para pesquisar ou dê ENTER para ver todos">
+          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div>
+      </form>
+    </div>
+  </nav>
+
+  <table class="responsive-table highlight pacientes">
+    <thead>
+      <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>CPF</th>
+          <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+        {% for paciente in pacientes %}
+      <tr>
+        <td><a href="{% url 'dados_paciente' pk=paciente.pk %}" class="nome">{{ paciente.nome }}</a></td>
+        <td>{{ paciente.email }}</td>
+        <td>{{ paciente.cpf }}</td>
+        <td>
+            <a href="{% url 'nova_consulta' pk=paciente.pk %}" class="btn-small light-green darken-4">Nova Consulta</a>
+            <a href="#" class="btn-small light-green darken-3">Evolução</a>
+            <a href="{% url 'plano_alimentar' pk=paciente.pk %}" class="btn-small light-green">Plano Alimentar</a>
+            <a href="{% url 'edita_paciente' pk=paciente.pk %}" class="btn-small"><i class="material-icons">edit</i></a>
+            <a href="{% url 'exclui_paciente' pk=paciente.pk %}" class="btn-small red" data-confirm="true"><i class="material-icons">delete</i></a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

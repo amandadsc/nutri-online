@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">   
+    <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}"/>   
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>{{ titulo }}</title>
+</head>
+<body>
+    <div class="login-content">
+        <div class="container-login z-depth-2">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    {% block scripts %}
+    {% endblock %}
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                M.toast({html: '{{ message }}',})
+            {% endfor %}
+        </script>
+    {% endif %}
+</body>
+</html>

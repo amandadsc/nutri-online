@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Nunito&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Nunito', serif;
+    background-color: #F3F3F3;
+    
+}
+
+h1 {
+    line-height:  150% !important;
+}
+
+h6 {
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+p {
+    margin-top: 0;
+}
+
+.row {
+    margin-bottom: 0 !important;
+}
+
+.login-content {
+    background-image: url(../img/bg.png);
+    background-size: cover;
+    height: 100vh;
+    background-attachment: fixed;
+    width:100%;
+    padding-top: 170px;
+}
+
+.container-login {
+    width: 80%;
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-radius: 20px 0;
+}
+
+.container {
+    width: 80%;
+}
+
+.margin-topo {
+    margin-top: 35px;
+}
+
+.margin-topo-home {
+    margin-top: 100px;
+}
+
+.margin-bottom {
+    margin-bottom: 35px !important;
+}
+
+.pesquisa {
+    margin-top: 20px;
+}
+
+nav .brand-logo {
+    font-size: 1.25rem !important;
+    margin-top: 25px !important;
+}
+
+.pacientes {
+    background-color: #FFFFFF;
+}
+
+.nome a, .link a {
+    text-decoration: underline !important;   
+}
+
+.link {
+    margin-top: 20px;
+    font-size: 13px;
+}
+
+.linha {
+    border-bottom: 1px solid #98CE00 !important;
+    padding-right: 10px !important;
+}
+
+.input-field input[type=text], .input-field input[type=email], .input-field input[type=password], .input-field input[type=date], .input-field input[type=number], .input-field textarea, .input-field select, p label input[type=text], .input-field input[type=tel] {
+    border-bottom: 1px solid #98CE00;
+}
+
+.rounded {
+    border-radius: 10px;
+}
+
+.negrito {
+    font-weight: bold !important;
+}
+
+.caixa_alta {
+    text-transform: uppercase !important;
+}
+
+.margin-bottom-zero {
+    margin-bottom: 0px !important;
+}
+
+table thead tr {
+    width: 50px;
+}
+
+.card-home {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.btn-sair a {
+    width: 90% !important;
+}
+
+.tabs .tab a {
+    color: #312509;
+}
+
+.tabs .tab a:hover, .tabs .tab a.active {
+    background-color: transparent;
+    color: #558b2f;
+    font-weight: bold;
+}
+
+.fixed-action-btn {
+    width: 60px !important;
+}
+
+.collapsible li.active i {
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+.collapsible-header {
+    justify-content: space-between;
+}
+
+
+@media only screen and (max-width: 439px) {
+    .container {
+        width: 90%;
+    }
+    nav .brand-logo {
+        font-size: 1.125rem !important;
+        margin-top: 20px !important;
+        width: 100%;
+    }
+
+    .card .card-title {
+        font-size: 18px;
+        font-weight: 300;
+    }
+
+    .card-home {
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .tabs .tab a {
+        font-size: 9.5px;
+    }
+
+    .card .card-content {
+        padding: 10px 24px !important;
+    }
+    
+    .card .card-action {
+        padding: 5px 24px !important;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+        height: 80px !important;
+        line-height: 80px !important;
+    }
+}
+

@@ -1,0 +1,77 @@
+{% extends 'base.html' %}  
+{% load static %}
+
+{% block header %}
+    <h1 class="brand-logo center">{{ titulo }}</h1>
+    <ul>
+        <li class="left"><a href="{% url 'lista_paciente' %}" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
+        
+        <li class="right"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons">logout</i></a></li>
+        <li class="right"><a href="{% url 'plano_alimentar' pk=paciente.pk %}" class="btn white green-text text-darken-1">Plano Alimentar Atual</a></li>
+    </ul>
+{% endblock %}
+ 
+{% block content %}
+    <div class="row margin-topo center">  
+        <h6>paciente: {{ paciente.nome }}</h6>   
+    </div>
+    <div class="row">  
+        <form method="POST" class="col s12">
+            {% csrf_token %}
+            {% load widget_tweaks %}
+            <div class="row">
+                <div class="input-field col s12 m4">
+                    <p>Dia da Semana</p>  
+                    {{form.dia_da_semana|attr:"id:dia_da_semana"|add_class:"validate"|attr:"required:True"}}
+                </div>                       
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    {{form.cafe_da_manha|attr:"type:text"|attr:"id:cafe_da_manha"|add_class:"validate"|add_class:"materialize-textarea"|attr:"required:True"}}
+                    <label for="cafe_da_manha">Insira o café da manhã</label>                            
+                </div>                                          
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    {{form.lanche_da_manha|attr:"type:text"|attr:"id:lanche_da_manha"|add_class:"validate"|add_class:"materialize-textarea"|attr:"required:True"}}
+                    <label for="lanche_da_manha">Insira o lanche da manhã</label>                            
+                </div>                                          
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    {{form.almoco|attr:"type:text"|attr:"id:almoco"|add_class:"validate"|add_class:"materialize-textarea"|attr:"required:True"}}
+                    <label for="almoco">Insira o almoço</label>                            
+                </div>                                          
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    {{form.lanche_da_tarde|attr:"type:text"|attr:"id:lanche_da_tarde"|add_class:"validate"|add_class:"materialize-textarea"|attr:"required:True"}}
+                    <label for="lanche_da_tarde">Insira o lanche da tarde</label>                            
+                </div>                                          
+            </div>
+            
+            <div class="row">
+                <div class="input-field col s12">
+                    {{form.jantar|attr:"type:text"|attr:"id:jantar"|add_class:"validate"|add_class:"materialize-textarea"|attr:"required:True"}}
+                    <label for="jantar">Insira o jantar</label>                            
+                </div>                                          
+            </div>
+
+            <div class="row">
+                <div class="input-field col s12">
+                    {{form.ceia|attr:"type:text"|attr:"id:ceia"|add_class:"validate"|add_class:"materialize-textarea"|attr:"required:True"}}
+                    <label for="ceia">Insira a ceia</label>                            
+                </div>                                          
+            </div>
+            <button type="submit" class="btn green darken-1">Salvar</button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src={% static 'js/select.js' %}></script>
+{% endblock %}

@@ -15,21 +15,23 @@ def entrar(request):
     if request.method == "POST":
         email = request.POST["email"]
         senha = request.POST["senha"]
-        usuario_aux = get_object_or_404(User, email=email)
-        usuario = authenticate(request, username=usuario_aux.username, password=senha)
-        if usuario is not None:
-            if usuario.groups.filter(name = 'admin'):
-                login(request, usuario)
-                messages.add_message(request, messages.SUCCESS, 'Admin logado com sucesso!')
-                return redirect('lista_paciente')
-            elif usuario.groups.filter(name = 'paciente'):
-                paciente = get_object_or_404(Paciente, email=email)
-                login(request, usuario)
-                messages.add_message(request, messages.SUCCESS, 'Usuário logado com sucesso!')
-                return redirect('mostra_home', pk=paciente.pk)
-            else:
-                messages.add_message(request, messages.INFO, 'Usuário não cadastrado!')
-                return HttpResponseRedirect('/')
+        try:
+            usuario_aux = User.objects.get(email=email)
+            usuario = authenticate(request, username=usuario_aux.username, password=senha)
+            if usuario is not None:
+                if usuario.groups.filter(name = 'admin'):
+                    login(request, usuario)
+                    messages.add_message(request, messages.SUCCESS, 'Admin logado com sucesso!')
+                    return redirect('lista_paciente')
+                else:
+                    paciente = Paciente.objects.get(email=email)
+                    login(request, usuario)
+                    messages.add_message(request, messages.SUCCESS, 'Usuário logado com sucesso!')
+                    return redirect('mostra_home', pk=paciente.pk)
+        except User.DoesNotExist:
+            print("usuario nao existe")
+            messages.add_message(request, messages.INFO, 'Usuário não cadastrado!')
+            return HttpResponseRedirect('/')
     return render(request, 'register/login.html', {'titulo': 'NutriOnline'})
 
 @login_required(login_url='entrar')

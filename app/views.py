@@ -29,6 +29,7 @@ def entrar(request):
                 return redirect('mostra_home', pk=paciente.pk)
             else:
                 messages.add_message(request, messages.INFO, 'Usuário não cadastrado!')
+                return HttpResponseRedirect('/')
     return render(request, 'register/login.html', {'titulo': 'NutriOnline'})
 
 @login_required(login_url='entrar')
@@ -50,7 +51,7 @@ def confirma_email(request):
             if usuario is not None:
                 return redirect('redefine_senha', pk=paciente.pk)
         except User.DoesNotExist:
-            messages.add_message(request, messages.SUCCESS, 'Usuário não encontrado!')
+            messages.add_message(request, messages.INFO, 'Usuário não encontrado!')
             return HttpResponseRedirect('/')
 
 @usuario_nao_autenticado

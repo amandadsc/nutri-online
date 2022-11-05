@@ -3,8 +3,8 @@
 {% block header %}
     <h1 class="brand-logo center">{{ titulo }}</h1>
     <ul>
-        <li class="left"><a href="{% url 'mostra_home' pk=paciente.pk %}" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
-        <li class="right hide-on-small-only"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons">logout</i></a></li>
+        <li class="left"><a href="{% url 'mostra_home' pk=paciente.pk %}" class="white-text"><i class="material-icons" alt="Voltar">arrow_back_ios</i></a></li>
+        <li class="right hide-on-small-only"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons" alt="Sair">logout</i></a></li>
     </ul>
 {% endblock %}
 

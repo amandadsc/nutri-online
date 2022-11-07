@@ -4,9 +4,9 @@
 {% block header %}
     <h1 class="brand-logo center">{{ titulo }}</h1>
     <ul>
-        <li class="left"><a href="{% url 'lista_paciente' %}" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
+        <li class="left"><a href="{% url 'lista_paciente' %}" class="white-text"><i class="small material-icons">arrow_back_ios</i></a></li>
         
-        <li class="right"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons">logout</i></a></li>
+        <li class="right"><a href="{% url 'sair' %}" class="white-text"><i class="small material-icons">logout</i></a></li>
         <li class="right"><a href="{% url 'plano_alimentar' pk=paciente.pk %}" class="btn white green-text text-darken-1">Plano Alimentar Atual</a></li>
     </ul>
 {% endblock %}

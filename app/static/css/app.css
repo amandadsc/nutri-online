@@ -144,6 +144,21 @@ table thead tr {
     justify-content: space-between;
 }
 
+.tiny {
+    font-size: 1rem!important;
+}
+
+.small{
+    font-size:2rem !important;
+} 
+
+.medium {
+    font-size: 4rem !important;
+} 
+
+.large {
+    font-size:6rem !important;
+} 
 
 @media only screen and (max-width: 439px) {
     .container {
@@ -182,5 +197,23 @@ table thead tr {
     nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
         height: 80px !important;
         line-height: 80px !important;
+    }
+}
+
+@media only screen and (max-width: 1138px) {
+    table tbody tr td {
+        font-size: 13px;
+    }
+    
+    table tbody tr td a  {
+        font-size: 13px;
+    }
+
+    table tbody tr td .btn-small {
+        font-size: 10px !important;
+    }
+
+    table tbody tr td .btn-small i {
+        font-size: 14px !important;
     }
 }

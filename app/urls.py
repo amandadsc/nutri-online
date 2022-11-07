@@ -21,9 +21,9 @@ urlpatterns = [
     path('pacientes/<int:pk>/grafico_massa_muscular', views.grafico_massa_muscular, name='grafico_massa_muscular'),
     path('pacientes/<int:pk>/grafico_imc', views.grafico_imc, name='grafico_imc'),
     path('<int:pk>/home', views.mostra_home, name='mostra_home'),
-    path('<int:pk>/dados_pessoais', views.dados_pessoais, name='dados_pessoais'),
-    path('<int:pk>/plano_alimentar', views.plano_alimentar_atual, name='plano_alimentar_atual'),
-    path('<int:pk>/evolucao', views.evolucao, name='evolucao'),
+    path('<int:pk>/dados_pessoais', views.dados_paciente, name='dados_pessoais'),
+    path('<int:pk>/plano_alimentar', views.plano_alimentar, name='plano_alimentar_atual'),
+    path('<int:pk>/evolucao', views.evolucao_paciente, name='evolucao'),
     path('confirma_email/', views.confirma_email, name='confirma_email'),
     path('<int:pk>/redefine_senha/', views.redefine_senha, name='redefine_senha'),
 ]

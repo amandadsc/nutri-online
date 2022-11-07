@@ -29,7 +29,6 @@ def entrar(request):
                     messages.add_message(request, messages.SUCCESS, 'Usuário logado com sucesso!')
                     return redirect('mostra_home', pk=paciente.pk)
         except User.DoesNotExist:
-            print("usuario nao existe")
             messages.add_message(request, messages.INFO, 'Usuário não cadastrado!')
             return HttpResponseRedirect('/')
     return render(request, 'register/login.html', {'titulo': 'NutriOnline'})
@@ -52,7 +51,7 @@ def confirma_email(request):
             paciente = get_object_or_404(Paciente, email=email)
             if usuario is not None:
                 return redirect('redefine_senha', pk=paciente.pk)
-        except User.DoesNotExist:
+        except:
             messages.add_message(request, messages.INFO, 'Usuário não encontrado!')
             return HttpResponseRedirect('/')
 
@@ -75,13 +74,13 @@ def redefine_senha(request, pk):
 @usuarios_permitidos(roles_permitidos=['admin'])
 def lista_paciente(request):
     pacientes = Paciente.objects.all()
-    return render(request, 'admin/lista_paciente.html', {'pacientes': pacientes, 'titulo': 'NutriOnline'})
+    return render(request, 'lista_paciente.html', {'pacientes': pacientes, 'titulo': 'NutriOnline'})
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
 def mostra_paciente(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
-    return render(request, 'admin/mostra_paciente.html', {'paciente': paciente, 'titulo':'NutriOnline'})
+    return render(request, 'mostra_paciente.html', {'paciente': paciente, 'titulo':'NutriOnline'})
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
@@ -92,7 +91,7 @@ def search(request):
         if query == '':
             query = 'None'
         pacientes = Paciente.objects.filter(Q(nome__icontains=query) |Q(cpf__iexact=query))
-    return render(request, 'admin/search.html', {'query': query, 'pacientes': pacientes})
+    return render(request, 'search.html', {'query': query, 'pacientes': pacientes})
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
@@ -103,7 +102,7 @@ def cadastra_paciente(request):
             try:
                 usuario_aux = User.objects.get(email=request.POST['email'])
                 if usuario_aux:
-                    return render(request, 'app/edita_paciente.html',{'msg': 'Erro! Já existe um usuário com o mesmo e-mail'})
+                    return render(request, 'edita_paciente.html',{'msg': 'Erro! Já existe um usuário com o mesmo e-mail'})
             except User.DoesNotExist:
                 email = request.POST['email']
                 usuario = request.POST['usuario']
@@ -120,7 +119,7 @@ def cadastra_paciente(request):
                 return redirect('nova_consulta', pk=paciente.pk)
     else:
         form = PacienteForm()
-    return render(request, 'admin/edita_paciente.html', {'form': form, 'titulo': 'Cadastro de Paciente'})
+    return render(request, 'edita_paciente.html', {'form': form, 'titulo': 'Cadastro de Paciente'})
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
@@ -143,7 +142,7 @@ def edita_paciente(request, pk):
             return redirect('mostra_paciente', pk=paciente.pk)                
     else:
         form = PacienteForm(instance=paciente)
-    return render(request, 'admin/edita_paciente.html', {'form': form, 'paciente': paciente, 'titulo': 'Atualização de Paciente'})
+    return render(request, 'edita_paciente.html', {'form': form, 'paciente': paciente, 'titulo': 'Atualização de Paciente'})
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
@@ -176,15 +175,8 @@ def nova_consulta(request, pk):
     else:
         form = ConsultaForm()
 
-    return render(request, 'admin/nova_consulta.html', {'form': form, 'paciente':paciente, 'titulo': 'Nova Consulta'})
+    return render(request, 'nova_consulta.html', {'form': form, 'paciente':paciente, 'titulo': 'Nova Consulta'})
 
-@login_required(login_url='entrar')
-@usuarios_permitidos(roles_permitidos=['admin'])
-def dados_paciente(request, pk):
-    paciente = get_object_or_404(Paciente, pk=pk)
-    consulta = Consulta.objects.filter(paciente=paciente).last()
-    idade = paciente.calcula_idade()
-    return render(request, 'admin/dados_paciente.html', {'paciente': paciente, 'consulta': consulta, 'idade': idade, 'titulo': 'Dados do Paciente'})
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
@@ -200,14 +192,8 @@ def novo_plano_alimentar(request, pk):
             return redirect('novo_plano_alimentar', pk=paciente.pk)
     else:
         form = PlanoAlimentarForm()
-    return render(request, 'admin/novo_plano_alimentar.html', {'form': form, 'paciente':paciente, 'titulo': 'Novo Plano Alimentar'})
+    return render(request, 'novo_plano_alimentar.html', {'form': form, 'paciente':paciente, 'titulo': 'Novo Plano Alimentar'})
 
-@login_required(login_url='entrar')
-@usuarios_permitidos(roles_permitidos=['admin'])
-def plano_alimentar(request, pk):
-    paciente = get_object_or_404(Paciente, pk=pk)
-    plano_alimentar = PlanoAlimentar.objects.filter(paciente=paciente) 
-    return render(request, 'admin/plano_alimentar.html', {'paciente':paciente, 'plano_alimentar': plano_alimentar, 'titulo': 'Plano Alimentar Atual'})
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
@@ -220,16 +206,11 @@ def edita_plano_alimentar(request, pk, dia_da_semana):
             plano_alimentar = form.save(commit=False)
             plano_alimentar.paciente = paciente
             plano_alimentar.save()
+            messages.add_message(request, messages.SUCCESS, 'Plano Alimentar atualizado com sucesso!')
             return redirect('plano_alimentar', pk=paciente.pk)
     else:
         form = PlanoAlimentarForm(instance=plano_alimentar)  
-    return render(request, 'admin/novo_plano_alimentar.html', {'form': form, 'paciente':paciente, 'plano_alimentar': plano_alimentar, 'titulo': 'Atualiza Plano Alimentar'})
-
-@login_required(login_url='entrar')
-@usuarios_permitidos(roles_permitidos=['admin'])
-def evolucao_paciente(request, pk):
-    paciente = get_object_or_404(Paciente, pk=pk)
-    return render(request, 'admin/evolucao.html', {'paciente': paciente, 'titulo': 'Evolução do Paciente'})
+    return render(request, 'novo_plano_alimentar.html', {'form': form, 'paciente':paciente, 'plano_alimentar': plano_alimentar, 'titulo': 'Atualiza Plano Alimentar'})
 
 
 # VIEWS DO PACIENTE
@@ -237,31 +218,47 @@ def evolucao_paciente(request, pk):
 @usuarios_permitidos(roles_permitidos=['paciente'])
 def mostra_home(request, pk):
     paciente = get_object_or_404(Paciente, pk=pk)
-    return render(request, 'app/home.html', {'paciente': paciente, 'titulo': 'NutriOnline'})
-
-@login_required(login_url='entrar')
-@usuarios_permitidos(roles_permitidos=['paciente'])
-def dados_pessoais(request, pk):
-    paciente = get_object_or_404(Paciente, pk=pk)
-    consulta = Consulta.objects.filter(paciente=paciente).last()
-    idade = paciente.calcula_idade()
-    return render(request, 'app/dados_pessoais.html', {'paciente': paciente, 'consulta': consulta, 'idade': idade, 'titulo': 'Meus Dados Pessoais'})
-
-@login_required(login_url='entrar')
-@usuarios_permitidos(roles_permitidos=['paciente'])
-def plano_alimentar_atual(request, pk):
-    paciente = get_object_or_404(Paciente, pk=pk)
-    plano_alimentar = PlanoAlimentar.objects.filter(paciente=paciente) 
-    return render(request, 'app/plano_alimentar.html', {'paciente': paciente, 'plano_alimentar': plano_alimentar, 'titulo': 'Meu Plano Alimentar'})
-
-@login_required(login_url='entrar')
-@usuarios_permitidos(roles_permitidos=['paciente'])
-def evolucao(request, pk):
-    paciente = get_object_or_404(Paciente, pk=pk)
-    return render(request, 'app/evolucao.html', {'paciente': paciente, 'titulo': 'Minha Evolução'})
+    return render(request, 'home.html', {'paciente': paciente, 'titulo': 'NutriOnline'})
 
 
 # VIEWS COMUNS
+@login_required(login_url='entrar')
+@usuarios_permitidos(roles_permitidos=['admin', 'paciente'])
+def evolucao_paciente(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    group = request.user.groups.all()[0].name
+    if group == 'admin':
+        titulo = 'Evolução do Paciente'
+    else:
+        titulo = 'Minha Evolução'
+    return render(request, 'evolucao.html', {'paciente': paciente, 'titulo': titulo, 'group': group})
+
+@login_required(login_url='entrar')
+@usuarios_permitidos(roles_permitidos=['admin', 'paciente'])
+def dados_paciente(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    consulta = Consulta.objects.filter(paciente=paciente).last()
+    idade = paciente.calcula_idade()
+    group = request.user.groups.all()[0].name
+    if group == 'admin':
+        titulo = 'Dados do Paciente'
+    else:
+        titulo = 'Meus Dados Pessoais'
+    return render(request, 'dados_paciente.html', {'paciente': paciente, 'consulta': consulta, 'idade': idade, 'titulo': titulo, 'group': group})
+
+@login_required(login_url='entrar')
+@usuarios_permitidos(roles_permitidos=['admin', 'paciente'])
+def plano_alimentar(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    plano_alimentar = PlanoAlimentar.objects.filter(paciente=paciente) 
+    group = request.user.groups.all()[0].name
+    if group == 'admin':
+        titulo = 'Plano Alimentar Atual'
+    else:
+        titulo = 'Meu Plano Alimentar'
+    return render(request, 'plano_alimentar.html', {'paciente':paciente, 'plano_alimentar': plano_alimentar, 'titulo': titulo, 'group': group})
+
+
 @login_required(login_url='entrar')
 def grafico_peso(request, pk):
     datas = []

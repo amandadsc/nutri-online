@@ -4,12 +4,23 @@
 {% block header %}
     <h1 class="brand-logo center">{{ titulo }}</h1>
     <ul>
-        <li class="left"><a href="{% url 'mostra_home' pk=paciente.pk %}" class="white-text"><i class="material-icons" alt="Voltar">arrow_back_ios</i></a></li>
-        <li class="right hide-on-small-only"><a href="{% url 'sair' %}" class="white-text"><i class="material-icons" alt="Sair">logout</i></a></li>
+        {% if group == 'admin' %}
+            <li class="left"><a href="{% url 'lista_paciente'%}" title="Voltar" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
+        {% endif %}
+        {% if group == 'paciente' %}
+            <li class="left"><a href="{% url 'mostra_home' pk=paciente.pk %}" title="Voltar" class="white-text"><i class="material-icons">arrow_back_ios</i></a></li>
+        {% endif %}
+
+        <li class="right hide-on-small-only"><a href="{% url 'sair' %}" title="Sair" class="white-text"><i class="material-icons">logout</i></a></li>
     </ul>
 {% endblock %}
      
 {% block content %}
+{% if group == 'admin' %}
+    <div class="row margin-topo center">
+        <h6>paciente: {{ paciente.nome }}</h6>   
+    </div>
+{% endif %}
 <div class="row margin-topo center">
     <div class="col s12">
         <div class="card light-green darken-3">
@@ -61,7 +72,7 @@
 {% block scripts %}
     <script src="https://cdn.jsdelivr.net/npm/chart.js@^3"></script>
     <script src="https://cdn.jsdelivr.net/npm/luxon@^2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@^1"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@^1"></script>   
     <script src="{% static 'js/graficos.js' %}"></script>
     <script>
         window.onload = function(e){

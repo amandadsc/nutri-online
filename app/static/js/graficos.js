@@ -32,7 +32,11 @@ function renderiza_grafico_peso(url){
                     x: {
                         type: "time",
                         time: {
-                            tooltipFormat: 'DD',
+                            tooltipFormat: 'd LLL y',
+                            displayFormats: {
+                                day: 'd LLL yy',
+                                month: 'd LLL yy',
+                            },
                         },
                         title: {
                             display: true,
@@ -83,7 +87,11 @@ function renderiza_grafico_massa_muscular(url){
                     x: {
                         type: 'time',
                         time: {
-                            tooltipFormat: 'DD',
+                            tooltipFormat: 'd LLL y',
+                            displayFormats: {
+                                day: 'd LLL yy',
+                                month: 'd LLL yy',
+                            },
                         },
                         title: {
                             display: true,
@@ -134,7 +142,11 @@ function renderiza_grafico_massa_gordura(url){
                     x: {
                         type: 'time',
                         time: {
-                            tooltipFormat: 'DD',
+                            tooltipFormat: 'd LLL y',
+                            displayFormats: {
+                                day: 'd LLL yy',
+                                month: 'd LLL yy',
+                            },
                         },
                         title: {
                             display: true,
@@ -185,7 +197,11 @@ function renderiza_grafico_imc(url){
                     x: {
                         type: 'time',
                         time: {
-                            tooltipFormat: 'DD',
+                            tooltipFormat: 'd LLL y',
+                            displayFormats: {
+                                day: 'd LLL yy',
+                                month: 'd LLL yy',
+                            },
                         },
                         title: {
                             display: true,

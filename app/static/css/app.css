@@ -39,9 +39,8 @@ p {
     max-width: 400px;
     margin: 0 auto;
     background-color: #FFFFFF;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    border-radius: 20px 0;
+    padding: 20px 10px;
+    border-radius: 15px;
 }
 
 .container {
@@ -161,6 +160,11 @@ table thead tr {
 } 
 
 @media only screen and (max-width: 439px) {
+
+    img {
+        width: 100%;
+    }
+    
     .container {
         width: 90%;
     }

@@ -22,15 +22,18 @@ class PlanoAlimentarForm(forms.ModelForm):
         model = PlanoAlimentar
         fields = ('dia_da_semana', 'cafe_da_manha', 'lanche_da_manha', 'almoco', 'lanche_da_tarde', 'jantar', 'ceia',)
 
+
     def __init__(self, *args, **kwargs):
         super(PlanoAlimentarForm, self).__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
+            self.fields['dia_da_semana'].required = False
             self.fields['dia_da_semana'].widget.attrs['disabled'] = True
+
 
     def clean_dia_da_semana(self):
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
             return instance.dia_da_semana
         else:
-            return self.cleaned_data['dia_da_semana']
+            return self.cleaned_data.get('dia_da_semana', None)

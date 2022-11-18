@@ -40,7 +40,7 @@ function renderiza_grafico_peso(url){
                         },
                         title: {
                             display: true,
-                            text: 'Data'
+                            text: 'Data da Consulta'
                         },
                         adapters: {
                             date: {
@@ -95,7 +95,7 @@ function renderiza_grafico_massa_muscular(url){
                         },
                         title: {
                             display: true,
-                            text: 'Data'
+                            text: 'Data da Consulta'
                         },
                         adapters: {
                             date: {
@@ -150,7 +150,7 @@ function renderiza_grafico_massa_gordura(url){
                         },
                         title: {
                             display: true,
-                            text: 'Data'
+                            text: 'Data da Consulta'
                         },
                         adapters: {
                             date: {
@@ -205,7 +205,7 @@ function renderiza_grafico_imc(url){
                         },
                         title: {
                             display: true,
-                            text: 'Data'
+                            text: 'Data da Consulta'
                         },
                         adapters: {
                             date: {

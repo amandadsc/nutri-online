@@ -171,12 +171,65 @@ def nova_consulta(request, pk):
             consulta.paciente = paciente
             consulta.save()
             messages.add_message(request, messages.SUCCESS, 'Consulta criada com sucesso!')
-            return redirect('novo_plano_alimentar', pk=paciente.pk)
+            return redirect('mostra_paciente', pk=paciente.pk)
     else:
         form = ConsultaForm()
-
     return render(request, 'nova_consulta.html', {'form': form, 'paciente':paciente, 'titulo': 'Nova Consulta'})
 
+@login_required(login_url='entrar')
+@usuarios_permitidos(roles_permitidos=['admin', 'paciente'])
+def lista_consulta(request, pk):
+    paciente = get_object_or_404(Paciente, pk=pk)
+    consultas = Consulta.objects.filter(paciente=paciente).order_by('-data')
+    group = request.user.groups.all()[0].name 
+    if group == 'admin':
+        titulo = 'Consultas'
+    else:
+        titulo = 'Minhas Consultas'
+    return render(request, 'lista_consulta.html', {'consultas': consultas, 'paciente': paciente, 'group': group, 'titulo': titulo})
+
+@login_required(login_url='entrar')
+@usuarios_permitidos(roles_permitidos=['admin', 'paciente'])
+def consulta(request, pk):
+    consulta =  get_object_or_404(Consulta, pk=pk)
+    data = consulta.data.date()
+    paciente = consulta.paciente
+    idade = paciente.calcula_idade()
+    group = request.user.groups.all()[0].name
+    return render(request, 'consulta.html', {'consulta': consulta, 'paciente': paciente, 'idade': idade, 'data': data, 'group': group, 'titulo': 'Consultas'})
+
+@login_required(login_url='entrar')
+@usuarios_permitidos(roles_permitidos=['admin'])
+def edita_consulta(request, pk):
+    consulta = get_object_or_404(Consulta, pk=pk)
+    paciente = consulta.paciente
+    if request.method == "POST":
+        form = ConsultaForm(request.POST, instance=consulta)
+        if form.is_valid():
+            consulta = form.save(commit=False)
+            consulta.paciente = paciente
+            consulta.save()
+            messages.add_message(request, messages.SUCCESS, 'Consulta atualizada com sucesso!')
+            return redirect('lista_consulta', pk=paciente.pk)
+    else:
+        form = ConsultaForm(instance=consulta)
+    return render(request, 'nova_consulta.html', {'form': form, 'paciente':paciente, 'consulta': consulta, 'titulo': 'Atualiza Consulta'})
+
+
+@login_required(login_url='entrar')
+@usuarios_permitidos(roles_permitidos=['admin'])
+def exclui_consulta(request, pk):
+    try:
+        consulta = get_object_or_404(Consulta, pk=pk)
+        paciente = consulta.paciente
+        consulta.delete()
+        print("excluindo")
+        messages.add_message(request, messages.SUCCESS, 'Consulta excluída com sucesso!')
+    except Exception: 
+        messages.add_message(request, messages.ERROR, 'Não foi possível excluir consulta!')
+        return redirect(request, 'lista_consulta')
+    return redirect ('lista_consulta', pk=paciente.pk)
+    
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin'])
@@ -245,6 +298,7 @@ def dados_paciente(request, pk):
     else:
         titulo = 'Meus Dados Pessoais'
     return render(request, 'dados_paciente.html', {'paciente': paciente, 'consulta': consulta, 'idade': idade, 'titulo': titulo, 'group': group})
+
 
 @login_required(login_url='entrar')
 @usuarios_permitidos(roles_permitidos=['admin', 'paciente'])

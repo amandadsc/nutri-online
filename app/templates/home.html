@@ -10,7 +10,7 @@
 
 {% block content %}
 <div class="row center margin-topo">
-    <div class="col s12 m4">
+    <div class="col s12 m3">
         <a href="{% url 'dados_pessoais' pk=paciente.pk %}">
             <div class="card white card-home">
                 <div class="card-content black-text">
@@ -20,7 +20,7 @@
             </div>
         </a>
     </div>
-    <div class="col s12 m4">
+    <div class="col s12 m3">
         <a href="{% url 'evolucao' pk=paciente.pk %}">
             <div class="card white card-home">
                 <div class="card-content black-text">
@@ -30,12 +30,22 @@
             </div>
         </a>
     </div>
-    <div class="col s12 m4">
+    <div class="col s12 m3">
         <a href="{% url 'plano_alimentar_atual' pk=paciente.pk %}">
             <div class="card white card-home">
                 <div class="card-content black-text">
                 <span class="card-title"><i class="medium material-icons">restaurant</i></span>
                 <p>Plano alimentar</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col s12 m3">
+        <a href="{% url 'lista_consulta' pk=paciente.pk %}">
+            <div class="card white card-home">
+                <div class="card-content black-text">
+                <span class="card-title"><i class="medium material-icons">folder</i></span>
+                <p>Consultas</p>
                 </div>
             </div>
         </a>

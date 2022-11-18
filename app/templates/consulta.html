@@ -1,0 +1,214 @@
+{% extends 'base.html' %}  
+
+{% block header %}
+    {% if group == 'admin' %}
+        <h1 class="brand-logo center">{{ consulta.data }}</h1>
+    {% endif %}
+    {% if group == 'paciente' %}
+        <h1 class="brand-logo center">{{ data }}</h1>
+    {% endif %}
+    <ul>
+        {% if group == 'admin' %}
+            <li class="left"><a href="{% url 'lista_consulta' pk=paciente.pk %}" title="voltar" class="white-text"><i class="small material-icons">arrow_back_ios</i></a></li>
+        {% endif %}
+
+        {% if group == 'paciente' %}
+            <li class="left"><a href="{% url 'mostra_home' pk=paciente.pk %}" title="voltar" class="white-text"><i class="small material-icons" alt="Voltar">arrow_back_ios</i></a></li>
+        {% endif %}
+
+        <li class="right hide-on-small-only"><a href="{% url 'sair' %}" title="sair" class="white-text"><i class="small material-icons">logout</i></a></li>
+    </ul>
+{% endblock %}
+
+{% block content %}
+{% if group == 'admin' %}
+    <div class="row margin-topo center">
+        <h6>paciente: {{ paciente.nome }}</h6>   
+    </div>
+
+<div class="row margin-topo">
+    <div class="col s12 m6">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Idade</span>
+              <p>{{ idade }} anos</p>
+            </div>
+        </div>                   
+    </div> 
+    <div class="col s12 m6">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Objetivo</span>
+              <p>{{ paciente.objetivo }}</p>
+            </div>
+        </div>                    
+    </div>    
+</div>
+{% endif %}
+
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Peso</span>
+              <p>{{ consulta.peso }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em kg</span>
+            </div>
+        </div>
+    </div>  
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Altura</span>
+              <p>{{ consulta.altura }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em m</span>
+            </div>
+        </div>
+    </div>   
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">IMC</span>
+              <p>{{ consulta.imc_valor }} - {{ consulta.imc_classificacao }}</p>
+            </div>
+        </div>
+    </div>                  
+</div>
+
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Massa de gordura</span>
+              <p>{{ consulta.massa_gordura }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em kg</span>
+            </div>
+        </div>
+    </div>  
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Massa muscular</span>
+              <p>{{ consulta.massa_muscular }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em kg</span>
+            </div>
+        </div>
+    </div>   
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Gordura visceral</span>
+              <p>{{ consulta.gordura_visceral }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em kg</span>
+            </div>
+        </div>
+    </div>                   
+</div>
+
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida do abdomem</span>
+              <p>{{ consulta.medida_abdomem }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div>  
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida do quadril</span>
+              <p>{{ consulta.medida_quadril }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div>   
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida da cintura</span>
+              <p>{{ consulta.medida_cintura }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div>                   
+</div>
+
+<div class="row">
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida do peito</span>
+              <p>{{ consulta.medida_peito }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div> 
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida do braço esquerdo</span>
+              <p>{{ consulta.medida_braco_esq }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div>  
+    <div class="col s12 m4">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida do braço direito</span>
+              <p>{{ consulta.medida_braco_dir }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div>                                          
+</div>
+
+<div class="row">
+    <div class="col s12 m6">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida da perna esquerda</span>
+              <p>{{ consulta.medida_perna_esq }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div> 
+    <div class="col s12 m6">
+        <div class="card light-green darken-3">
+            <div class="card-content white-text">
+              <span class="card-title">Medida da perna direita</span>
+              <p>{{ consulta.medida_perna_dir }}</p>
+            </div>
+            <div class="card-action">
+                <span class="white-text">Em cm</span>
+            </div>
+        </div>
+    </div>                                          
+</div>        
+{% endblock %}

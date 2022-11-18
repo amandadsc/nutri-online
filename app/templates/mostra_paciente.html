@@ -41,6 +41,7 @@
             <a href="{% url 'nova_consulta' pk=paciente.pk %}" class="btn-small light-green darken-4">Nova Consulta</a>
             <a href="{% url 'evolucao_paciente' pk=paciente.pk %}" class="btn-small light-green darken-3">Evolução</a>
             <a href="{% url 'plano_alimentar' pk=paciente.pk %}" class="btn-small light-green">Plano Alimentar</a>
+            <a href="{% url 'lista_consulta' pk=paciente.pk %}" class="btn-small green">Consultas</a>
             <a href="{% url 'edita_paciente' pk=paciente.pk %}" class="btn-small"><i class="material-icons">edit</i></a>
             <a href="{% url 'exclui_paciente' pk=paciente.pk %}" class="btn-small red" data-confirm="true"><i class="material-icons">delete</i></a>
         </td>

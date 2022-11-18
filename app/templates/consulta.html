@@ -8,13 +8,7 @@
         <h1 class="brand-logo center">{{ data }}</h1>
     {% endif %}
     <ul>
-        {% if group == 'admin' %}
-            <li class="left"><a href="{% url 'lista_consulta' pk=paciente.pk %}" title="voltar" class="white-text"><i class="small material-icons">arrow_back_ios</i></a></li>
-        {% endif %}
-
-        {% if group == 'paciente' %}
-            <li class="left"><a href="{% url 'mostra_home' pk=paciente.pk %}" title="voltar" class="white-text"><i class="small material-icons" alt="Voltar">arrow_back_ios</i></a></li>
-        {% endif %}
+        <li class="left"><a href="{% url 'lista_consulta' pk=paciente.pk %}" title="voltar" class="white-text"><i class="small material-icons">arrow_back_ios</i></a></li>
 
         <li class="right hide-on-small-only"><a href="{% url 'sair' %}" title="sair" class="white-text"><i class="small material-icons">logout</i></a></li>
     </ul>

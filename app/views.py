@@ -36,10 +36,7 @@ def entrar(request):
 @login_required(login_url='entrar')
 def sair(request):
     logout(request)
-    if request.user.groups.filter(name = 'admin'):
-        messages.add_message(request, messages.SUCCESS, 'Admin deslogado com sucesso!')
-    else:
-        messages.add_message(request, messages.SUCCESS, 'Usuário deslogado com sucesso!')
+    messages.add_message(request, messages.SUCCESS, 'Deslogado com sucesso!')
     return HttpResponseRedirect('/')
 
 @usuario_nao_autenticado
